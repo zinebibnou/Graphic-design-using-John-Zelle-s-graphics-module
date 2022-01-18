@@ -1,1 +1,25 @@
-
+def SizeImput():
+    continueAsking = True
+    while(continueAsking):
+        print("The sizes available are 5; 7; 9")
+        size = input("Enter a screen size: ")
+        if size.isnumeric() != True :
+            print("Sorry we don't accept the following:[letters,signs,space].")
+        elif size in ["9","7","5"]:
+            continueAsking = False
+        else:
+            print("Sorry this size is unavailable.Try again")
+    return size
+def ColorImput():
+    colors = {'r':'red','R':'red','b':"blue",'B':'blue','g':'green','G':'green','c':'cyan','C':'cyan','m':'magenta','M':'magenta','o':'orange','O':'orange'}
+    continueAsking = True
+    while(continueAsking):
+        print("The colors available are Red; Green; Blue; Cyan; Mangenta; Orange.Enter just the first letter of the color.")
+        color = input("Enter the color: ")
+        if color in colors:
+            continueAsking= False
+        elif color.isalpha()==True:
+            print("This color is unavailable,Try again.")
+        else:
+            print("Sorry we don't accept the following:[letters,signs,space]. ")
+    return colors[color]

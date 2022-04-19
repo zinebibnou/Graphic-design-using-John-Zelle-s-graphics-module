@@ -1,0 +1,136 @@
+from graphics import*
+#functions used to draw finaldigitdesign,x and y represent coordinate of the topleft point.
+patchsize = 100
+def drawtext(text,p,win,color):
+    text = Text(p,text)
+    text.setOutline(color)
+    text.draw(win)
+    return(text)
+def drawline(point1,point2,win,colour):
+    line = Line(point1,point2)
+    line.setOutline(colour)
+    line.draw(win)
+    return line
+def finaldigitdesign(TopleftX,TopleftY,win,color):
+    for x in range(TopleftX,TopleftX+120,20):
+        drawline(Point(x,TopleftX),Point(x,TopleftX+patchsize),win,color)
+        drawline(Point(TopleftX,x),Point(TopleftX+patchsize,x),win,color)
+    for X in range(TopleftX+10,TopleftX+100,20):
+        for Y in range(TopleftY+10,TopleftY+100,20):
+            drawtext("hi!",Point(X,Y),win,color)
+#function used to draw Penultimatedigitdesign.
+def drawCircle(win,center,radius,colour):
+    circle = Circle(center,radius)
+    circle.setFill(colour)
+    circle.draw(win)
+    return circle
+def drawsquare(x,y,win,color,dimension):
+    square= Rectangle(Point(x,y),Point(x+dimension,y+dimension))
+    square.setOutline(color)
+    square.setFill(color)
+    square.draw(win)
+    return square
+def drawFourcircleInSqureTF(win,x,y,radius,color1,color2):
+    drawsquare(x,y,win,color1,20)
+    for X in range(x+radius,x+20,10):
+        for Y in range(y+radius,y+20,10):
+           drawCircle(win,Point(X,Y),radius,color2)
+def Penultimatedigitdesign(x,y,win,color):
+    for Y in range(y,y+patchsize,20):
+        for X in range(x,x+patchsize,20):
+            sum = x+y
+            if (X+Y)-sum in [20,60,100,140]:
+                drawFourcircleInSqureTF(win,X,Y,5,color,"white")
+            else:
+                drawFourcircleInSqureTF(win,X,Y,5,"White",color)
+def SizeImput():
+    continueAsking = True
+    while(continueAsking):
+        print("The sizes available are 5; 7; 9")
+        size = input("Enter a screen size: ")
+        if size.isnumeric() != True :
+            print("Sorry we don't accept the following:[letters,signs,space].")
+        elif size in ["9","7","5"]:
+            continueAsking = False
+        else:
+            print("Sorry this size is unavailable.Try again")
+    return size
+def ColorImput():
+    colors = {'r':'red','R':'red','b':"blue",'B':'blue','g':'green','G':'green','c':'cyan','C':'cyan','m':'magenta','M':'magenta','o':'orange','O':'orange'}
+    continueAsking = True
+    while(continueAsking):
+        print("The colors available are Red; Green; Blue; Cyan; Mangenta; Orange.Enter just the first letter of the color.")
+        color = input("Enter the color: ")
+        if color in colors:
+            continueAsking= False
+        elif color.isalpha()==True:
+            print("This color is unavailable,Try again.")
+        else:
+            print("Sorry we don't accept the following:[letters,signs,space]. ")
+    return colors[color]
+def DrawPatch(size,color1,color2,color3):
+    win = GraphWin("final patche",patchsize*size,patchsize*size)
+    for y in range(0,size*patchsize,patchsize):
+        for x in range(0,size*patchsize,patchsize):
+            edge = size*patchsize - 100
+            if 100<=x<edge and 100<=y<edge:
+                color = color3
+            elif x%200==0 and y%200==0:
+                color = color1
+            else:
+                color= color2
+            if x==y:
+                finaldigitdesign(x,y,win,color)
+            else:
+                Penultimatedigitdesign(x,y,win,color)
+def main():
+    size = int(SizeImput())
+    color1 = ColorImput()
+    color2 = ColorImput()
+    color3 = ColorImput()
+    DrawPatch(size,color1,color2,color3)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
